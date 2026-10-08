@@ -46,8 +46,9 @@ pytest
 
 ## Submitting a Certificate Generation Request
 
-You can submit a job request with a list of recipients:
+You can submit a job request with a list of recipients. 
 
+**For Mac/Linux / Git Bash:**
 ```bash
 curl -X POST "http://127.0.0.1:8000/jobs" \
      -H "Content-Type: application/json" \
@@ -62,6 +63,12 @@ curl -X POST "http://127.0.0.1:8000/jobs" \
          }'
 ```
 
+**For Windows PowerShell:**
+*(Use `curl.exe` and escape internal quotes)*
+```powershell
+curl.exe -X POST "http://127.0.0.1:8000/jobs" -H "Content-Type: application/json" -d '{\"title\": \"Python Basics Course\", \"issue_date\": \"2026-10-08\", \"issuer\": \"Tech Academy\", \"recipients\": [{\"name\": \"Alice Smith\", \"email\": \"alice@example.com\"}, {\"name\": \"Bob Jones\"}]}'
+```
+
 The response will return a 202 status code and the `job_id`:
 ```json
 {
@@ -74,8 +81,14 @@ The response will return a 202 status code and the `job_id`:
 
 Poll the job status using the `job_id`:
 
+**Mac/Linux:**
 ```bash
 curl "http://127.0.0.1:8000/jobs/<job_id>"
+```
+
+**Windows PowerShell:**
+```powershell
+curl.exe "http://127.0.0.1:8000/jobs/<job_id>"
 ```
 
 The response will detail the overall progress and the status of each certificate:
@@ -99,6 +112,12 @@ The response will detail the overall progress and the status of each certificate
 
 Once a certificate's status is `success`, you can download its PDF using its `cert_id`:
 
+**Mac/Linux:**
 ```bash
 curl -O -J "http://127.0.0.1:8000/certificates/<cert_id>/download"
+```
+
+**Windows PowerShell:**
+```powershell
+curl.exe -O -J "http://127.0.0.1:8000/certificates/<cert_id>/download"
 ```
